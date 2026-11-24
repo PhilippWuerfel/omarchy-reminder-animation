@@ -49,7 +49,9 @@ Use lowercase letters, digits, `_` or `-` for the folder name. Give both root it
 
 > Read `skins/plain/Track.qml` and `skins/plain/Finish.qml`. Create a new skin in `skins/firefly/`, leaving all other files untouched. During the countdown, draw an original firefly moving toward a leaf as `progress` goes from 0 to 1. On expiry, have it circle the leaf and gently glow until the widget is clicked. Keep the template's dimensions and property names. Use QtQuick primitives or Canvas, no third-party artwork, network requests, shell commands or click handlers. Make it legible on both dark and light bars. Return the two QML files and the command to select the skin.
 
-### Keep your taste local
+### Edit a private skin in your repo and preview it locally
+
+`omarchy bar set` **selects** a skin in the installed plugin; it does not copy files from your repo. Installing from GitHub or from a local Git repo does not include ignored skins.
 
 Git ignores **every folder under `skins/` except `plain/`**. You can keep personal skins in your development checkout without publishing them. Verify with `git check-ignore -v skins/firefly/Track.qml`. Do not force-add private skins. Ignored files are not backed up or transferred by Git.
 
@@ -59,6 +61,8 @@ The development checkout and installed plugin are separate directories. To use a
 cp -r skins/firefly ~/.config/omarchy/plugins/pw.reminder-animation/skins/
 omarchy bar set pw.reminder-animation skin firefly
 ```
+
+After editing `Track.qml` or `Finish.qml` in your checkout, repeat the `cp` command above. If the bar still shows the old animation, run `omarchy-restart-shell` (this clears the current pin). The selected skin stays selected. No commit, push, or reinstall is needed.
 
 Keep the checkout copy as your source. To use that skin on another laptop, copy it separately after installing the plugin. Before publishing changes, run `omarchy plugin validate .` and inspect `git status --short --ignored`.
 
