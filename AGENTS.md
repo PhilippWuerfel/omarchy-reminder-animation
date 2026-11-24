@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Omarchy bar plugin (`pw.reminder-animation`): a skinnable countdown widget for `omarchy-reminder`, written in QML (Qt 6 / Quickshell).
+Omarchy bar plugin (`phiwue.reminder-animation`): a skinnable countdown widget for `omarchy-reminder`, written in QML (Qt 6 / Quickshell).
 
 ## Layout
 

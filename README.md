@@ -19,10 +19,10 @@ Choose `centerEnd` to place the widget to the right of the clock. No manual `she
 3. When the timer expires, the animation starts automatically and loops until you click it or set a new reminder, which the widget then follows. A reminder set while another is still counting down does not take over; pick it from the menu instead. With several reminders and none selected, the widget follows the one set first. Dismissing the normal system notification does not dismiss the animation. With no reminders left, the widget disappears. Pins last for the current shell session. The widget polls the reminder list every five seconds. If you clear a pinned timer just before it is due, it can disappear between polls and be mistaken for an expiry; click once to dismiss the animation.
 
 ```sh
-omarchy plugin update pw.reminder-animation
-omarchy plugin disable pw.reminder-animation
+omarchy plugin update phiwue.reminder-animation
+omarchy plugin disable phiwue.reminder-animation
 # To uninstall instead, back up your custom skins first:
-omarchy plugin remove pw.reminder-animation
+omarchy plugin remove phiwue.reminder-animation
 ```
 
 After `omarchy plugin update`, run `omarchy-restart-shell`. The shell reloads changed plugin files on its own, but it keeps the reminder state that is already running. Without a restart, the widget can mix new and old code. For example, a fix in the expiry logic may not take effect.
@@ -32,10 +32,10 @@ After `omarchy plugin update`, run `omarchy-restart-shell`. The shell reloads ch
 Start with the working template rather than editing the timer code. In the **installed plugin**:
 
 ```sh
-cd ~/.config/omarchy/plugins/pw.reminder-animation
+cd ~/.config/omarchy/plugins/phiwue.reminder-animation
 cp -r skins/plain skins/firefly   # choose a new folder name
 # Edit skins/firefly/Track.qml and skins/firefly/Finish.qml, then activate:
-omarchy bar set pw.reminder-animation skin firefly
+omarchy bar set phiwue.reminder-animation skin firefly
 ```
 
 | File | What to draw | Inputs |
@@ -45,7 +45,7 @@ omarchy bar set pw.reminder-animation skin firefly
 
 To watch a skin without a running reminder, open the preview from the checkout or plugin root with `qml6 tools/preview.qml` (part of `qt6-declarative`). It lists every folder under `skins/`, plays the countdown in a loop or lets you scrub `progress` with a slider, and shows `Finish.qml` below. Reopen it after editing a file. The preview runs as its own process and is never loaded by the shell.
 
-Use lowercase letters, digits, `_` or `-` for the folder name. Give both root items an `implicitWidth` and `implicitHeight`. Switch back with `omarchy bar set pw.reminder-animation skin plain`. If you edit an already loaded QML file and the old version is still visible, run `omarchy-restart-shell` (this also resets the current pin). Only load skins you trust: QML is executable code.
+Use lowercase letters, digits, `_` or `-` for the folder name. Give both root items an `implicitWidth` and `implicitHeight`. Switch back with `omarchy bar set phiwue.reminder-animation skin plain`. If you edit an already loaded QML file and the old version is still visible, run `omarchy-restart-shell` (this also resets the current pin). Only load skins you trust: QML is executable code.
 
 ### Example AI prompt
 
@@ -60,8 +60,8 @@ Git ignores **every folder under `skins/` except `plain/`**. You can keep person
 The development checkout and installed plugin are separate directories. To use a skin from your checkout, run the following **from the checkout root** after installing the plugin (replace `firefly` with your folder name):
 
 ```sh
-cp -r skins/firefly ~/.config/omarchy/plugins/pw.reminder-animation/skins/
-omarchy bar set pw.reminder-animation skin firefly
+cp -r skins/firefly ~/.config/omarchy/plugins/phiwue.reminder-animation/skins/
+omarchy bar set phiwue.reminder-animation skin firefly
 ```
 
 After editing `Track.qml` or `Finish.qml` in your checkout, repeat the `cp` command above. If the bar still shows the old animation, run `omarchy-restart-shell` (this clears the current pin). The selected skin stays selected. No commit, push, or reinstall is needed.
@@ -73,7 +73,7 @@ Keep the checkout copy as your source. To use that skin on another laptop, copy 
 The installed plugin is a Git checkout. To run a pushed branch in your bar:
 
 ```sh
-cd ~/.config/omarchy/plugins/pw.reminder-animation
+cd ~/.config/omarchy/plugins/phiwue.reminder-animation
 git fetch origin
 git checkout <branch>      # later: git pull
 omarchy-restart-shell
