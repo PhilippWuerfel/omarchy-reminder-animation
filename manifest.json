@@ -4,6 +4,7 @@
   "name": "Reminder Animation",
   "version": "0.1.0",
   "author": "Philipp Wuerfel",
+  "license": "MIT",
   "description": "Animated countdowns for Omarchy reminders",
   "kinds": [
     "bar-widget"
