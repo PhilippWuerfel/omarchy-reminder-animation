@@ -35,7 +35,7 @@ Item {
         id: picker
         popupType: QQC.Popup.Window
         y: root.height
-        QQC.MenuItem { text: 'Automatic: next timer'; onTriggered: Local.ReminderState.pinned = null }
+        QQC.MenuItem { text: 'Automatic: next timer'; onTriggered: Local.ReminderState.pinned = Local.ReminderState.items.length === 1 && Local.ReminderState.items[0].at > Date.now()/1000 ? Local.ReminderState.items[0] : null }
         Instantiator {
             id: choices
             model: []
