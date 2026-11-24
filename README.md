@@ -15,8 +15,8 @@ Choose `centerEnd` to place the widget to the right of the clock. No manual `she
 ## Try it
 
 1. Set a reminder as usual, or run `omarchy-reminder 1 "Take a break"`.
-2. Click the countdown and choose the reminder to **pin** it. Otherwise, the widget just follows the next upcoming reminder.
-3. When the pinned timer expires, the animation loops until you click it. Dismissing the normal system notification does not dismiss the animation. With no reminders left, the widget disappears. Pins last for the current shell session. The widget polls the reminder list every five seconds. If you clear a pinned timer just before it is due, it can disappear between polls and be mistaken for an expiry; click once to dismiss the animation.
+2. For a single timer, no selection is needed. Let the countdown run without clicking it.
+3. When the timer expires, the animation starts automatically and loops until you click it. Dismissing the normal system notification does not dismiss the animation. With no reminders left, the widget disappears. Pins last for the current shell session. The widget polls the reminder list every five seconds. If you clear a pinned timer just before it is due, it can disappear between polls and be mistaken for an expiry; click once to dismiss the animation.
 
 ```sh
 omarchy plugin update pw.reminder-animation
