@@ -16,7 +16,7 @@ Choose `centerEnd` to place the widget to the right of the clock. No manual `she
 
 1. Set a reminder as usual, or run `omarchy-reminder 1 "Take a break"`.
 2. For a single timer, no selection is needed. Let the countdown run without clicking it.
-3. When the timer expires, the animation starts automatically and loops until you click it. Dismissing the normal system notification does not dismiss the animation. With no reminders left, the widget disappears. Pins last for the current shell session. The widget polls the reminder list every five seconds. If you clear a pinned timer just before it is due, it can disappear between polls and be mistaken for an expiry; click once to dismiss the animation.
+3. When the timer expires, the animation starts automatically and loops until you click it or set a new reminder, which the widget then follows. A reminder set while another is still counting down does not take over; pick it from the menu instead. With several reminders and none selected, the widget follows the one set first. Dismissing the normal system notification does not dismiss the animation. With no reminders left, the widget disappears. Pins last for the current shell session. The widget polls the reminder list every five seconds. If you clear a pinned timer just before it is due, it can disappear between polls and be mistaken for an expiry; click once to dismiss the animation.
 
 ```sh
 omarchy plugin update pw.reminder-animation
@@ -24,6 +24,8 @@ omarchy plugin disable pw.reminder-animation
 # To uninstall instead, back up your custom skins first:
 omarchy plugin remove pw.reminder-animation
 ```
+
+After `omarchy plugin update`, run `omarchy-restart-shell`. The shell reloads changed plugin files on its own, but it keeps the reminder state that is already running. Without a restart, the widget can mix new and old code. For example, a fix in the expiry logic may not take effect.
 
 ## Make a skin
 
@@ -65,6 +67,33 @@ omarchy bar set pw.reminder-animation skin firefly
 After editing `Track.qml` or `Finish.qml` in your checkout, repeat the `cp` command above. If the bar still shows the old animation, run `omarchy-restart-shell` (this clears the current pin). The selected skin stays selected. No commit, push, or reinstall is needed.
 
 Keep the checkout copy as your source. To use that skin on another laptop, copy it separately after installing the plugin. Before publishing changes, run `omarchy plugin validate .` and inspect `git status --short --ignored`.
+
+## Run a branch
+
+The installed plugin is a Git checkout. To run a pushed branch in your bar:
+
+```sh
+cd ~/.config/omarchy/plugins/pw.reminder-animation
+git fetch origin
+git checkout <branch>      # later: git pull
+omarchy-restart-shell
+```
+
+To go back, run `git checkout main` and `omarchy-restart-shell`. Restart the shell after every switch. Do not run `omarchy plugin update` while a branch other than `main` is checked out.
+
+## Run the tests
+
+```sh
+QT_QPA_PLATFORM=offscreen /usr/lib/qt6/bin/qmltestrunner -input tests
+```
+
+CI runs the same command on every pull request. To run it automatically before each commit, enable the repo's Git hooks once per clone:
+
+```sh
+git config core.hooksPath .githooks
+```
+
+Bypass the hook for a single commit with `git commit --no-verify`.
 
 ## License
 

@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls as QQC
 import "countdownstate" as Local
+import "countdownstate/Focus.js" as Focus
 
 Item {
     id: root
@@ -35,7 +36,7 @@ Item {
         id: picker
         popupType: QQC.Popup.Window
         y: root.height
-        QQC.MenuItem { text: 'Automatic: next timer'; onTriggered: Local.ReminderState.pinned = Local.ReminderState.items.length === 1 && Local.ReminderState.items[0].at > Date.now()/1000 ? Local.ReminderState.items[0] : null }
+        QQC.MenuItem { text: 'Automatic: first timer set'; onTriggered: root.follow() }
         Instantiator {
             id: choices
             model: []
@@ -56,9 +57,12 @@ Item {
         onExited: if (root.bar) root.bar.hideTooltip(root)
         onClicked: {
             if (root.bar) root.bar.hideTooltip(root)
-            if (Local.ReminderState.finished) Local.ReminderState.pinned = null
+            if (Local.ReminderState.finished) root.follow()
             else { choices.model = Local.ReminderState.items; picker.open() }
         }
+    }
+    function follow() {
+        Local.ReminderState.pinned = Focus.reconcile(Local.ReminderState.items, null, Math.floor(Date.now()/1000))
     }
     onReminderChanged: if (bar && hover.containsMouse) { if (reminder) bar.showTooltip(root, reminder.label); else bar.hideTooltip(root) }
 }

@@ -1,0 +1,14 @@
+#!/bin/sh
+# Runs the QML test suite before each commit (same command as CI).
+# Skip once with: git commit --no-verify
+set -e
+cd "$(git rev-parse --show-toplevel)"
+runner=/usr/lib/qt6/bin/qmltestrunner
+if [ ! -x "$runner" ]; then
+  echo "pre-commit: $runner not found (install qt6-declarative) – skipping tests" >&2
+  exit 0
+fi
+QT_QPA_PLATFORM=offscreen "$runner" -input tests -silent || {
+  echo "pre-commit: tests failed – commit aborted (use --no-verify to bypass)" >&2
+  exit 1
+}
