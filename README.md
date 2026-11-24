@@ -68,6 +68,19 @@ After editing `Track.qml` or `Finish.qml` in your checkout, repeat the `cp` comm
 
 Keep the checkout copy as your source. To use that skin on another laptop, copy it separately after installing the plugin. Before publishing changes, run `omarchy plugin validate .` and inspect `git status --short --ignored`.
 
+## Run a branch
+
+The installed plugin is a Git checkout. To run a pushed branch in your bar:
+
+```sh
+cd ~/.config/omarchy/plugins/pw.reminder-animation
+git fetch origin
+git checkout <branch>      # later: git pull
+omarchy-restart-shell
+```
+
+To go back, run `git checkout main` and `omarchy-restart-shell`. Restart the shell after every switch. Do not run `omarchy plugin update` while a branch other than `main` is checked out.
+
 ## License
 
 [MIT](LICENSE). The distributed template uses geometric shapes and does not require external artwork.
