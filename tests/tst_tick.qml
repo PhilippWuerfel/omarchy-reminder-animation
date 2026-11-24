@@ -12,6 +12,13 @@ TestCase {
     function test_on_boundary_waits_full_step() {
         compare(Focus.msUntilNextTick(42000, 1000), 1000)
     }
+    function test_counts_only_while_a_countdown_runs() {
+        const timer = {unit: 'one', at: 100}
+        verify(!Focus.counting(null, 50))        // no reminder: widget hidden
+        verify(Focus.counting(timer, 99))
+        verify(!Focus.counting(timer, 100))      // the tick that reaches 'at' is the last
+        verify(!Focus.counting(timer, 130))      // expired: animation runs on its own
+    }
     function test_always_within_one_step() {
         for (const ms of [0, 1, 499, 500, 999, 1000, 1001, 1732456789123]) {
             const wait = Focus.msUntilNextTick(ms, 1000)
