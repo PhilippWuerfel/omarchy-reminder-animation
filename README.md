@@ -25,6 +25,8 @@ omarchy plugin disable pw.reminder-animation
 omarchy plugin remove pw.reminder-animation
 ```
 
+After `omarchy plugin update`, run `omarchy-restart-shell`. The shell reloads changed plugin files on its own, but it keeps the reminder state that is already running. Without a restart, the widget can mix new and old code. For example, a fix in the expiry logic may not take effect.
+
 ## Make a skin
 
 Start with the working template rather than editing the timer code. In the **installed plugin**:
