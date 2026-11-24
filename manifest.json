@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "pw.reminder-animation",
+  "name": "Reminder Animation",
+  "version": "0.1.0",
+  "author": "Philipp Wuerfel",
+  "description": "Animated countdowns for Omarchy reminders",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "Widget.qml"
+  },
+  "barWidget": {
+    "displayName": "Reminder Animation",
+    "description": "Show a timer and animate until acknowledged",
+    "defaultSection": "centerEnd",
+    "category": "Status",
+    "schema": [
+      {
+        "key": "skin",
+        "type": "text",
+        "label": "Skin",
+        "defaultValue": "plain"
+      }
+    ]
+  }
+}

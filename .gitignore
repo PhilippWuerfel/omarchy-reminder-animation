@@ -1,0 +1,3 @@
+# Only the neutral template is distributed; all other skins stay local.
+/skins/*
+!/skins/plain/
