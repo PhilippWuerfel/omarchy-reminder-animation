@@ -1,6 +1,11 @@
 function display(items, pin, now) {
     return pin || items.find(r => r.at > now) || null
 }
+function msUntilNextTick(nowMs, step) {
+    // Same as Omarchy's clock (panels/clock/Model.js): wake just after the next
+    // boundary, so floor(now) never skips or repeats a second.
+    return step - nowMs % step
+}
 function created(r) {
     // omarchy-reminder names its units omarchy-reminder-<minutes>m-<set_at>.
     const match = /-(\d+)$/.exec(r.unit || '')

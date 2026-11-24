@@ -11,7 +11,18 @@ Item {
     readonly property var next: Focus.display(items, pinned, now)
     readonly property bool finished: !!pinned && pinned.at <= now
     readonly property int seconds: next ? Math.max(0,next.at - now) : 0
-    Timer { interval: 1000; running: state.items.length > 0; repeat: true; onTriggered: state.now = Math.floor(Date.now()/1000) }
+    Timer {
+        id: tick
+        function arm() {
+            interval = Focus.msUntilNextTick(Date.now(), 1000)
+            restart()
+        }
+        onTriggered: {
+            state.now = Math.floor(Date.now()/1000)
+            arm()
+        }
+        Component.onCompleted: arm()
+    }
     Timer { interval: 5000; running: true; repeat: true; triggeredOnStart: true; onTriggered: if (!query.running) query.running = true }
     Process {
         id: query
