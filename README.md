@@ -41,13 +41,17 @@ omarchy bar set pw.reminder-animation skin firefly
 | `Track.qml` | The countdown graphic (default 68 × 14 logical pixels). The widget draws the numeric time separately. | `property real progress`: elapsed fraction, 0 at start, 1 at expiry. `property color ink`: current bar foreground. |
 | `Finish.qml` | A looping animation in place of the countdown (default 107 × 20). Clicking is handled by the widget. | Optional `property color ink`. The component is unloaded on acknowledgement. |
 
+To watch a skin without a running reminder, open the preview from the checkout or plugin root with `qml6 tools/preview.qml` (part of `qt6-declarative`). It lists every folder under `skins/`, plays the countdown in a loop or lets you scrub `progress` with a slider, and shows `Finish.qml` below. Reopen it after editing a file. The preview runs as its own process and is never loaded by the shell.
+
 Use lowercase letters, digits, `_` or `-` for the folder name. Give both root items an `implicitWidth` and `implicitHeight`. Switch back with `omarchy bar set pw.reminder-animation skin plain`. If you edit an already loaded QML file and the old version is still visible, run `omarchy-restart-shell` (this also resets the current pin). Only load skins you trust: QML is executable code.
 
 ### Example AI prompt
 
 > Read `skins/plain/Track.qml` and `skins/plain/Finish.qml`. Create a new skin in `skins/firefly/`, leaving all other files untouched. During the countdown, draw an original firefly moving toward a leaf as `progress` goes from 0 to 1. On expiry, have it circle the leaf and gently glow until the widget is clicked. Keep the template's dimensions and property names. Use QtQuick primitives or Canvas, no third-party artwork, network requests, shell commands or click handlers. Make it legible on both dark and light bars. Return the two QML files and the command to select the skin.
 
-### Keep your taste local
+### Edit a private skin in your repo and preview it locally
+
+`omarchy bar set` **selects** a skin in the installed plugin; it does not copy files from your repo. Installing from GitHub or from a local Git repo does not include ignored skins.
 
 Git ignores **every folder under `skins/` except `plain/`**. You can keep personal skins in your development checkout without publishing them. Verify with `git check-ignore -v skins/firefly/Track.qml`. Do not force-add private skins. Ignored files are not backed up or transferred by Git.
 
@@ -57,6 +61,8 @@ The development checkout and installed plugin are separate directories. To use a
 cp -r skins/firefly ~/.config/omarchy/plugins/pw.reminder-animation/skins/
 omarchy bar set pw.reminder-animation skin firefly
 ```
+
+After editing `Track.qml` or `Finish.qml` in your checkout, repeat the `cp` command above. If the bar still shows the old animation, run `omarchy-restart-shell` (this clears the current pin). The selected skin stays selected. No commit, push, or reinstall is needed.
 
 Keep the checkout copy as your source. To use that skin on another laptop, copy it separately after installing the plugin. Before publishing changes, run `omarchy plugin validate .` and inspect `git status --short --ignored`.
 
