@@ -41,6 +41,8 @@ omarchy bar set pw.reminder-animation skin firefly
 | `Track.qml` | The countdown graphic (default 68 × 14 logical pixels). The widget draws the numeric time separately. | `property real progress`: elapsed fraction, 0 at start, 1 at expiry. `property color ink`: current bar foreground. |
 | `Finish.qml` | A looping animation in place of the countdown (default 107 × 20). Clicking is handled by the widget. | Optional `property color ink`. The component is unloaded on acknowledgement. |
 
+To watch a skin without a running reminder, open the preview from the checkout or plugin root with `qml6 tools/preview.qml` (part of `qt6-declarative`). It lists every folder under `skins/`, plays the countdown in a loop or lets you scrub `progress` with a slider, and shows `Finish.qml` below. Reopen it after editing a file. The preview runs as its own process and is never loaded by the shell.
+
 Use lowercase letters, digits, `_` or `-` for the folder name. Give both root items an `implicitWidth` and `implicitHeight`. Switch back with `omarchy bar set pw.reminder-animation skin plain`. If you edit an already loaded QML file and the old version is still visible, run `omarchy-restart-shell` (this also resets the current pin). Only load skins you trust: QML is executable code.
 
 ### Example AI prompt
