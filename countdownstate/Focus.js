@@ -1,6 +1,11 @@
 function display(items, pin, now) {
     return pin || items.find(r => r.at > now) || null
 }
+function counting(next, now) {
+    // The display only changes while a countdown runs; an expired reminder
+    // animates on its own and an empty widget is hidden.
+    return !!next && next.at > now
+}
 function msUntilNextTick(nowMs, step) {
     // Same as Omarchy's clock (panels/clock/Model.js): wake just after the next
     // boundary, so floor(now) never skips or repeats a second.
