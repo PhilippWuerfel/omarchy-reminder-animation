@@ -81,6 +81,20 @@ omarchy-restart-shell
 
 To go back, run `git checkout main` and `omarchy-restart-shell`. Restart the shell after every switch. Do not run `omarchy plugin update` while a branch other than `main` is checked out.
 
+## Run the tests
+
+```sh
+QT_QPA_PLATFORM=offscreen /usr/lib/qt6/bin/qmltestrunner -input tests
+```
+
+CI runs the same command on every pull request. To run it automatically before each commit, enable the repo's Git hooks once per clone:
+
+```sh
+git config core.hooksPath .githooks
+```
+
+Bypass the hook for a single commit with `git commit --no-verify`.
+
 ## License
 
 [MIT](LICENSE). The distributed template uses geometric shapes and does not require external artwork.
